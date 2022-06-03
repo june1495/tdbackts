@@ -4,6 +4,3 @@ import * as controller from './controller'
 const router = express.Router()
 
 router.get('/allusers', controller.getAllUsers)
-router.get('/', (_req, res) => {
-  res.send('h')
-})
