@@ -1,7 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import Note from '../models/notes/notes'
+import Note from '../../models/notes'
+import { Request, Response } from 'express'
 
-const CreateNote = async (req: any, res: any) => {
+const CreateNote = async (req: Request, res: Response) => {
   const { title, date, description } = req.body
 
   const newNote = new Note({
@@ -18,7 +19,7 @@ const CreateNote = async (req: any, res: any) => {
   })
 }
 
-const getAllNotes = async (_req: any, res: any) => {
+const getAllNotes = async (_req: Request, res: Response) => {
   try {
     const getNote = await Note.find({}).sort({ date: -1 }).select('-__V')
     res.status(200).json(getNote)
@@ -27,7 +28,7 @@ const getAllNotes = async (_req: any, res: any) => {
   }
 }
 
-const getNoteById = async (req: any, res: any) => {
+const getNoteById = async (req: Request, res: Response) => {
   try {
     const singleNote = await Note.findById(req.params.id)
     res.status(200).json(singleNote)
@@ -36,7 +37,7 @@ const getNoteById = async (req: any, res: any) => {
   }
 }
 
-const deleteNoteByid = async (req: any, res: any) => {
+const deleteNoteByid = async (req: Request, res: Response) => {
   try {
     await Note.findByIdAndDelete(req.params.id)
     res.status(200).json('Note deleted')
@@ -45,7 +46,7 @@ const deleteNoteByid = async (req: any, res: any) => {
   }
 }
 
-const updateNoteById = async (req: any, res: any) => {
+const updateNoteById = async (req: Request, res: Response) => {
   const { body } = req
 
   try {
