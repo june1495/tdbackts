@@ -8,8 +8,8 @@ import passport from 'passport'
 import passportConfig from './config/passport'
 import NotesRoute from './routes/notes/notes'
 import AuthRoute from './routes/auth/auth'
-const app = express()
 
+const app = express()
 const PORT = 3000
 
 dotenv.config()
@@ -30,14 +30,7 @@ app.use(express.json()) // MIDDLEWARE QUE TRANSFORMA LA REQ.BODY A UN JSON
 
 app.use(passport.initialize())
 passport.use(passportConfig)
-// passport.serializeUser((user, done) => {
-//   done(null, user.id)
-// })
-// passport.deserializeUser((id, done) => {
-//   User.findById(id, (err, user) => {
-//     done(err, user)
-//   })
-// })
+
 // ROUTES
 app.use('/api/v1/diaries', NotesRoute)
 app.use('/api/v1/diaries', AuthRoute)
