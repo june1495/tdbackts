@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/space-before-function-paren */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
-import User from '../../models/user'
+import { UserModel as User } from '../../models/central'
 import { Request, Response } from 'express'
 import cryptoJs from 'crypto-js'
 import jwt from 'jsonwebtoken'
@@ -17,7 +17,6 @@ const register = async (req: Request, res: Response) => {
   const { username, email } = req.body
   const secretPass: string = process.env.PASS_SEC ?? 'whatever'
 
-  console.log(secretPass)
   try {
     let user = await User.findOne({ email })
     if (user !== null) {
