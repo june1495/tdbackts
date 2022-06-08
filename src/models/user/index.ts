@@ -1,17 +1,20 @@
-import { prop, getModelForClass } from '@typegoose/typegoose'
-
-export class UserClass {
+import { prop, Ref } from '@typegoose/typegoose'
+import { Product } from '../product'
+export class User {
   @prop({ required: true })
-  username: string
+  public username: string
 
   @prop({ required: true })
-  password: string
+  public password: string
 
   @prop({ required: true, unique: true })
-  email: string
+  public email: string
+
+  @prop({ ref: () => Product })
+  public products: Array<Ref<Product>>
 }
 
-const UserModel = getModelForClass(UserClass, {
-  schemaOptions: { timestamps: true },
-})
-export default UserModel
+// const UserModel = getModelForClass(UserClass, {
+//   schemaOptions: { timestamps: true },
+// })
+// export default UserModel

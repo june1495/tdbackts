@@ -1,26 +1,28 @@
 /* eslint-disable @typescript-eslint/space-before-function-paren */
 import express, { urlencoded } from 'express'
 import mongoose from 'mongoose'
-import * as dotenv from 'dotenv'
+import dotenv from 'dotenv'
 import cors from 'cors'
 import morgan from 'morgan'
 import passport from 'passport'
 import passportConfig from './config/passport'
 import NotesRoute from './routes/notes/notes'
 import AuthRoute from './routes/auth/auth'
+import ProductRoute from './routes/product/product'
 
 const app = express()
-const PORT = 3000
+const PORT: number = 3000
 
 dotenv.config()
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-async function connectDb() {
-  await mongoose.connect('mongodb://localhost:27017/notesdb')
-  console.log('database connected')
-}
+const url: string = process.env.MONGO_URL ?? 'whate'
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
-connectDb()
+mongoose
+  .connect(url)
+  .then(() => {
+    console.log('Db Connection successfull')
+  })
+  .catch((err) => console.log(err))
 
 // MIDDLEWARES
 app.use(morgan('dev'))
@@ -34,6 +36,7 @@ passport.use(passportConfig)
 // ROUTES
 app.use('/api/v1/diaries', NotesRoute)
 app.use('/api/v1/diaries', AuthRoute)
+app.use('/api/v1/diaries', ProductRoute)
 
 app.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}`)
