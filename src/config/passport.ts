@@ -1,8 +1,7 @@
 /* eslint-disable no-new */
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import { Strategy, ExtractJwt, StrategyOptions } from 'passport-jwt'
-import User from '../models/user'
-
+import { UserModel as User } from '../models/central'
 const opts: StrategyOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
   secretOrKey: 'jwt',
