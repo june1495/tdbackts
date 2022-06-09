@@ -34,9 +34,9 @@ app.use(passport.initialize())
 passport.use(passportConfig)
 
 // ROUTES
-app.use('/api/v1/diaries', NotesRoute)
-app.use('/api/v1/diaries', AuthRoute)
-app.use('/api/v1/diaries', ProductRoute)
+app.use('/api/v1', NotesRoute)
+app.use('/api/v1', AuthRoute)
+app.use('/api/v1', ProductRoute)
 
 app.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}`)

@@ -16,6 +16,7 @@ function createToken(user: any) {
 const register = async (req: Request, res: Response) => {
   const { username, email } = req.body
   const secretPass: string = process.env.PASS_SEC ?? 'whatever'
+  console.log(req.body)
 
   try {
     let user = await User.findOne({ email })
@@ -52,15 +53,18 @@ const login = async (req: Request, res: Response) => {
 
     const hashedPassword = cryptoJs.AES.decrypt(user.password, secretPass)
     const originalPassword = hashedPassword.toString(cryptoJs.enc.Utf8)
-    originalPassword !== body.password &&
-      res.status(401).json('Wrong credentials')
-
-    res.status(200).json({
-      id: user._id,
-      name: user.username,
-      email: user.email,
-      token: createToken(user),
-    })
+    // originalPassword !== body.password &&
+    //   res.status(401).json('Wrong credentials')
+    if (originalPassword === body.password) {
+      res.status(200).json({
+        id: user._id,
+        name: user.username,
+        email: user.email,
+        token: createToken(user),
+      })
+    } else {
+      res.status(400).json('email or password incorectr')
+    }
   } catch (error) {
     res.status(500).json(error)
   }
