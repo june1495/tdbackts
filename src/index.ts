@@ -6,7 +6,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 import passport from 'passport'
 import passportConfig from './config/passport'
-import NotesRoute from './routes/notes/notes'
+
 import AuthRoute from './routes/auth/auth'
 import ProductRoute from './routes/product/product'
 
@@ -34,7 +34,6 @@ app.use(passport.initialize())
 passport.use(passportConfig)
 
 // ROUTES
-app.use('/api/v1', NotesRoute)
 app.use('/api/v1', AuthRoute)
 app.use('/api/v1', ProductRoute)
 
