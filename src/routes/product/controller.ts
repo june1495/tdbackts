@@ -17,7 +17,7 @@ const getProductById = async (req: Request, res: Response) => {
 
 const createProduct = async (req: Request, res: Response) => {
   const { body } = req
-  console.log(req.headers)
+  // console.log(req.headers)
   const userId: any = req.headers.user
   const newProduct = new Product({ ...body, user: userId })
   const user = await User.findById(userId)
@@ -34,9 +34,9 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getProducts = async (req: Request, res: Response) => {
   const userId: any = req.headers.user
-  console.log(req.headers.user)
   try {
     const data = await User.findById(userId).select('-__v').populate('products')
+    // console.log(data?.products)
     res.status(200).json(data)
   } catch (error) {
     res.status(500).json(error)
@@ -61,12 +61,16 @@ const updateById = async (req: Request, res: Response) => {
 }
 
 const deleteById = async (req: Request, res: Response) => {
-  console.log(req.headers)
   const id = req.headers.id
+  // const userId = req.headers.userid
   try {
-    const user = await User.findById(req.headers.userId)
-    await user?.products.filter((e) => e !== id)
     await Product.findByIdAndDelete(id)
+    // const user = await User.findById(userId)
+    // const ans = await user?.products
+    // await user?.products.splice(0)
+    // await user?.save()
+    // console.log(user)
+    // console.log(user?.products.indexOf(id))
     res.status(200).json('deleted')
   } catch (error) {
     res.status(500).json(error)
