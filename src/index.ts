@@ -9,6 +9,8 @@ import passportConfig from './config/passport'
 
 import AuthRoute from './routes/auth/auth'
 import ProductRoute from './routes/product/product'
+import PdfRoute from './routes/pdf/pdf'
+// import './utils/pdf'
 
 const app = express()
 const PORT: number = 3000
@@ -36,6 +38,7 @@ passport.use(passportConfig)
 // ROUTES
 app.use('/api/v1', AuthRoute)
 app.use('/api/v1', ProductRoute)
+app.use('/api/v1', PdfRoute)
 
 app.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}`)
