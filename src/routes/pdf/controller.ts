@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import template from '../../utils/templatepdf'
 import pdf, { CreateOptions } from 'html-pdf'
-import { Request, Response } from 'express'
+import { Request, Response } from 'express' // Types for req,res
 
 const options: CreateOptions = {
   format: 'A4',
@@ -12,11 +12,8 @@ const createPdf = (req: Request, res: Response) => {
   const date = new Date().toISOString()
   const datereg = date.slice(0, 13)
   const sec = new Date().getMilliseconds()
-  //   console.log(date.length)
-  console.log(sec)
   const { product, category, ubication, price, user } = req.body
 
-  console.log(req.body)
   pdf
     .create(template(product, category, ubication, price, user), options)
     .toFile(`./src/pdfsgenerated/${datereg}${sec}_test.pdf`, (err, res) => {
@@ -27,8 +24,8 @@ const createPdf = (req: Request, res: Response) => {
   return res.json({ filename: `${datereg}${sec}_test.pdf` })
 }
 
-const getPdf = (_req: Request, res: Response) => {
-  res.send('holamundo')
-}
+// const getPdf = (_req: Request, res: Response) => {
+//   res.send('holamundo')
+// }
 
-export { createPdf, getPdf }
+export { createPdf }
