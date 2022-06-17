@@ -8,7 +8,7 @@
 
 ## Creating Pdf
 
-1. librarie html-pdf
+1. library html-pdf
 2. Setting the pdf route on index.ts (line 41)
 3. Creating the template for our pdf, in "utils" folder (templatepdf.ts).
 4. Inside de the routes folder, i´ve created the pdf folder
