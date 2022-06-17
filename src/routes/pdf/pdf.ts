@@ -3,6 +3,6 @@ import express from 'express'
 import * as controller from './controller'
 const router = express.Router()
 
-router.route('/pdf').post(controller.createPdf).get()
+router.route('/pdf').post(controller.createPdf)
 
 export default router
