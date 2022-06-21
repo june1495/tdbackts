@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import {
   ProductModel as Product,
   UserModel as User,
 } from '../../models/central'
 import { Request, Response } from 'express'
+// import mongoose from 'mongoose'
 
 const getProductById = async (req: Request, res: Response) => {
   try {
@@ -24,7 +26,7 @@ const createProduct = async (req: Request, res: Response) => {
 
   try {
     const savedProduct = await newProduct.save()
-    await user?.products.push(newProduct)
+    await user?.products?.push(newProduct)
     await user?.save()
     res.status(200).json(savedProduct)
   } catch (error) {
@@ -34,6 +36,7 @@ const createProduct = async (req: Request, res: Response) => {
 
 const getProducts = async (req: Request, res: Response) => {
   const userId: any = req.headers.user
+
   try {
     const data = await User.findById(userId).select('-__v').populate('products')
     // console.log(data?.products)
@@ -61,16 +64,20 @@ const updateById = async (req: Request, res: Response) => {
 }
 
 const deleteById = async (req: Request, res: Response) => {
-  const id = req.headers.id
-  // const userId = req.headers.userid
+  const { id } = req.headers
   try {
-    await Product.findByIdAndDelete(id)
-    // const user = await User.findById(userId)
-    // const ans = await user?.products
-    // await user?.products.splice(0)
-    // await user?.save()
-    // console.log(user)
-    // console.log(user?.products.indexOf(id))
+    const product = await Product.findByIdAndDelete(id)
+    const userId: any = product?.user?.toString()
+    await User.findOneAndUpdate(
+      { _id: userId },
+
+      {
+        $pull: {
+          products: id,
+        },
+      },
+      { new: true },
+    )
     res.status(200).json('deleted')
   } catch (error) {
     res.status(500).json(error)

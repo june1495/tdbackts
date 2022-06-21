@@ -14,8 +14,8 @@ export class Product {
   @prop({ required: true })
   public price: number
 
-  @prop({ ref: () => User, type: () => String })
-  public user: Ref<User, string>
+  @prop({ ref: () => User })
+  public user: Ref<User>
 }
 
 // const UserProduct = getModelForClass(Product, {

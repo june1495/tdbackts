@@ -41,7 +41,6 @@ const register = async (req: Request, res: Response) => {
 
 const login = async (req: Request, res: Response) => {
   const { body } = req
-  console.log(body)
   const secretPass = process.env.PASS_SEC ?? 'whatever'
   try {
     const user = await User.findOne({ email: req.body.email })
@@ -53,7 +52,6 @@ const login = async (req: Request, res: Response) => {
     const originalPassword = hashedPassword.toString(cryptoJs.enc.Utf8)
     // originalPassword !== body.password &&
     //   res.status(401).json('Wrong credentials')
-    console.log(originalPassword === body.password)
     if (originalPassword === body.password) {
       res.status(200).json({
         id: user._id,
