@@ -9,6 +9,7 @@ const options: CreateOptions = {
 }
 
 const createPdf = (req: Request, res: Response) => {
+  console.log(req.body)
   const date = new Date().toISOString()
   const datereg = date.slice(0, 13)
   const sec = new Date().getMilliseconds()
