@@ -12,7 +12,7 @@ import ProductRoute from './routes/product/product'
 import PdfRoute from './routes/pdf/pdf'
 
 const app = express()
-const PORT: number = 3000
+// const PORT: number = 3000 || process.env.PORT
 
 dotenv.config()
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -40,6 +40,6 @@ app.use('/api/v1', ProductRoute) // ROUTE FOR PRODUCTS
 app.use('/api/v1', PdfRoute) // ROUTE FOR PDF
 
 // SERVER
-app.listen(PORT, () => {
-  console.log(`Server running on PORT ${PORT}`)
+app.listen(process.env.PORT, () => {
+  console.log('Server running on PORT')
 })

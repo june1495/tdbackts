@@ -39,7 +39,7 @@ const auth_1 = __importDefault(require("./routes/auth/auth"));
 const product_1 = __importDefault(require("./routes/product/product"));
 const pdf_1 = __importDefault(require("./routes/pdf/pdf"));
 const app = (0, express_1.default)();
-const PORT = 3000;
+// const PORT: number = 3000 || process.env.PORT
 dotenv_1.default.config();
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 const url = (_a = process.env.MONGO_URL) !== null && _a !== void 0 ? _a : 'whate';
@@ -61,6 +61,6 @@ app.use('/api/v1', auth_1.default); // ROUTE FOR AUTH
 app.use('/api/v1', product_1.default); // ROUTE FOR PRODUCTS
 app.use('/api/v1', pdf_1.default); // ROUTE FOR PDF
 // SERVER
-app.listen(PORT, () => {
-    console.log(`Server running on PORT ${PORT}`);
+app.listen(process.env.PORT, () => {
+    console.log('Server running on PORT');
 });
