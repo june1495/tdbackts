@@ -19,7 +19,7 @@ const getProductById = async (req: Request, res: Response) => {
 
 const createProduct = async (req: Request, res: Response) => {
   const { body } = req
-  // console.log(req.headers)
+  console.log(req.headers)
   const userId: any = req.headers.user
   const newProduct = new Product({ ...body, user: userId })
   const user = await User.findById(userId)
