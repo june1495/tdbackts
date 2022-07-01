@@ -43,3 +43,5 @@ app.use('/api/v1', PdfRoute) // ROUTE FOR PDF
 app.listen(process.env.PORT, () => {
   console.log('Server running on PORT')
 })
+
+export default app
