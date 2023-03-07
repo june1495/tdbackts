@@ -16,18 +16,25 @@ function createToken(user: any) {
 const register = async (req: Request, res: Response) => {
   const { username, email } = req.body
   const secretPass: string = process.env.PASS_SEC ?? 'whatever'
-
+  console.log(req.body)
   try {
-    let user = await User.findOne({ email })
+    let user = (await User.findOne({ email })) ?? null
     if (user !== null) {
-      return res.json({
+      return res.status(400).json({
         msg: 'The user already exists',
       })
     }
+    if (req.body.password !== '' && req.body.password !== null) {
+      req.body.password = cryptoJs.AES.encrypt(
+        req.body.password,
+        secretPass,
+      ).toString()
+    }
+
     user = new User({
       username,
       email,
-      password: cryptoJs.AES.encrypt(req.body.password, secretPass).toString(),
+      password: req.body.password,
     })
     await user.save()
     res.status(200).json({
